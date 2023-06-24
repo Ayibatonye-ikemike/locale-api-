@@ -31,29 +31,40 @@ describe('Region, State, and Local Government Routes', () => {
       API_key = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
     });
   
-  // Test for getting a specific state within a region
-
-    it('should get a specific state', async () => {
-      const response = await request(app)
-        .get('/location/state')
-        .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
+  // Test for getting a specific a region
   
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('state');
-      expect(response.body.region).toBe(true);
-    });
+  it('should get a specific region', async () => {
+    const response = await request(app)
+      .get('/location/region')
+      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
   
-  // Test for getting a specific local government within a state
-
-
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('region');
+    expect(response.body.region).toBe(true);
+  });
+  
+ // Test for getting a specific state 
 
   it('should get a specific state', async () => {
     const response = await request(app)
-      .get('/location/lga')
-      .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
-
+      .get('/location/state')
+      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
+  
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('lga');
+    expect(response.body).toHaveProperty('state');
+    expect(response.body.region).toBe(true);
+  });
+  
+    // Test for getting a specific local government
+
+  it('should get a specific local government', async () => {
+    const response = await request(app)
+      .get('/location/lga')
+      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
+  
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('lgas');
     expect(response.body.lgas).toBe(true);
   });
+  
 });

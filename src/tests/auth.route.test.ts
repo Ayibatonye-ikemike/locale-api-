@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('../app');
+import request from 'supertest';
+import app from '../../app'; // Assuming you have your Express app configured in a separate file called 'app.ts'
 
 describe('Authentication and Authorization Tests', () => {
   let API_key: any;
