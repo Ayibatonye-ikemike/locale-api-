@@ -5,18 +5,18 @@ import app from '../../app'; // Assuming you have your Express app configured in
 
 describe('Region, State, and Local Government Routes', () => {
     
-  let token: string; // Store the valid token here
+  let API_key: any; // Store the valid API_key here
   
     beforeAll(() => {
-      // Get a valid token for authentication
-      // You can obtain the token from your authentication mechanism
-      token = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
+      // Get a valid API_key for authentication
+      // You can obtain the API_key from your authentication mechanism
+      API_key = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
     });
   
     it('should get a specific region', async () => {
       const response = await request(app)
         .get('/location/region')
-        .set('Authorization', `Bearer ${token}`); // Add the Authorization header
+        .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
   
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('region');
@@ -27,8 +27,8 @@ describe('Region, State, and Local Government Routes', () => {
 
     beforeAll(() => {
       // Get a valid token for authentication
-      // You can obtain the token from your authentication mechanism
-      token = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
+      // You can obtain the API_key from your authentication mechanism
+      API_key = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
     });
   
   // Test for getting a specific state within a region
@@ -36,7 +36,7 @@ describe('Region, State, and Local Government Routes', () => {
     it('should get a specific state', async () => {
       const response = await request(app)
         .get('/location/state')
-        .set('Authorization', `Bearer ${token}`); // Add the Authorization header
+        .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
   
       expect(response.status).toBe(200);
       expect(response.body).toHaveProperty('state');
@@ -50,7 +50,7 @@ describe('Region, State, and Local Government Routes', () => {
   it('should get a specific state', async () => {
     const response = await request(app)
       .get('/location/lga')
-      .set('Authorization', `Bearer ${token}`); // Add the Authorization header
+      .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('lga');
