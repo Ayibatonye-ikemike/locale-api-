@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 
 describe('Authentication and Authorization Tests', () => {
-  let apiKey;
+  let apiKey: any;
 
   it('should return 201 when a user signs up with valid credentials', async () => {
     const response = await request(app)
