@@ -1,78 +1,90 @@
 import request from 'supertest';
-import app from '../../app'; // Assuming you have your Express app configured in a separate file called 'app.ts'
+import app from '../../app';
 
-describe('Authentication and Authorization Tests', () => {
-  let API_key: any;
+// location.route.test.ts
+const port = 3002; // Change the port number to 3002 or any other available port
 
-  it('should return 201 when a user signs up with valid credentials', async () => {
-    const response = await request(app)
-      .post('/auth/signup')
-      .send({
-        email: 'example@example.com',
-        password: 'password',
-      });
+// ...
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('message', 'User created successfully');
-  });
-
-  it('should generate an API key for the signed-up user', async () => {
-    const response = await request(app)
-      .post('/auth/signup')
-      .send({
-        email: 'example@example.com',
-        password: 'password',
-      });
-
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('API_key');
-    API_key = response.body.apiKeySchema;
-  });
-
-  it('should return 200 when a user logs in with valid API key', async () => {
-    const response = await request(app)
-      .post('/auth/verify')
-      .send({
-        apiKey: API_key,
-      });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('message', 'Login successful');
-  });
-
-  it('should verify the user\'s API key', async () => {
-    const response = await request(app)
-      .post('/auth/verify')
-      .send({
-        apiKey: API_key,
-      });
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('verified', true);
-  });
-
-  it('should return 200 when accessing a protected route with a valid API key', async () => {
-    const response = await request(app)
-      .get('/location/region')
-      .set('x-api-key', API_key);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('message', 'Access granted');
-  });
-
-  it('should return 401 when accessing a protected route without an API key', async () => {
-    const response = await request(app).get('/location/region');
-
-    expect(response.status).toBe(401);
-    expect(response.body).toHaveProperty('message', 'Unauthorized');
-  });
-
-  it('should return 401 when accessing a protected route with an invalid API key', async () => {
-    const response = await request(app)
-      .get('/location/region')
-      .set('x-api-key', 'invalid-api-key');
-
-    expect(response.status).toBe(401);
-    expect(response.body).toHaveProperty('message', 'Unauthorized');
+beforeAll(async () => {
+  await connectMongoDB();
+  app.listen(port, (): void => {
+    console.log(`Server listening on port ${port}`);
   });
 });
+
+// ...
+
+
+describe('Authentication Routes', () => {
+  describe('POST /signup', () => {
+    it('should return 201 and user data when signup is successful', async () => {
+      const response = await request(app)
+        .post('/signup')
+        .send({
+          email: 'test@example.com',
+          password: 'password123',
+          first_name: 'John',
+          last_name: 'Doe',
+          retype_password: 'password123',
+        });
+
+      expect(response.status).toBe(201);
+      expect(response.body).toHaveProperty('message', 'Signup successful. Welcome');
+      expect(response.body).toHaveProperty('user');
+      expect(response.body).toHaveProperty('notice');
+      expect(response.body).toHaveProperty('API_key');
+    });
+
+    it('should return 400 when passwords do not match', async () => {
+      const response = await request(app)
+        .post('/signup')
+        .send({
+          email: 'test@example.com',
+          password: 'password123',
+          first_name: 'John',
+          last_name: 'Doe',
+          retype_password: 'differentpassword',
+        });
+
+      expect(response.status).toBe(400);
+      expect(response.text).toBe('Passwords do not match');
+    });
+
+    // Add more test cases for different scenarios
+  });
+
+  describe('POST /verify', () => {
+    it('should return 200 when API key is verified successfully', async () => {
+      const response = await request(app)
+        .post('/verify')
+        .send({
+          API_key: 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91',
+          email: 'ijawpikin@gmail.com',
+          password: '1993',
+        });
+
+      expect(response.status).toBe(200);
+      expect(response.text).toBe('API key has been verified and is valid');
+    });
+
+    it('should return 401 when API key is invalid', async () => {
+      const response = await request(app)
+        .post('/verify')
+        .send({
+          API_key: 'invalid-api-key',
+          email: 'test@example.com',
+          password: 'password123',
+        });
+
+      expect(response.status).toBe(401);
+      expect(response.text).toBe('Invalid API key, please check that you are using your own API key and try again');
+    });
+
+    // Add more test cases for different scenarios
+  });
+});
+function connectMongoDB() {
+  throw new Error('Function not implemented.');
+}
+

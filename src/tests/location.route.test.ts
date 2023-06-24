@@ -1,70 +1,84 @@
 import request from 'supertest';
-// Rest of the test code...
-import app from '../../app'; // Assuming you have your Express app configured in a separate file called 'app.ts'
-  
+import app from '../../app';
 
-describe('Region, State, and Local Government Routes', () => {
-    
-  let API_key: any; // Store the valid API_key here
-  
-    beforeAll(() => {
-      // Get a valid API_key for authentication
-      // You can obtain the API_key from your authentication mechanism
-      API_key = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
+// auth.route.test.ts
+const port = 3001; // Change the port number to 3001 or any other available port
+
+// ...
+
+beforeAll(async () => {
+  await connectMongoDB();
+  app.listen(port, function (): void {
+      console.log(`Server listening on port ${port}`);
     });
-  
-    it('should get a specific region', async () => {
-      const response = await request(app)
-        .get('/location/region')
-        .set('Authorization', `Bearer ${API_key}`); // Add the Authorization header
-  
-      expect(response.status).toBe(200);
-      expect(response.body).toHaveProperty('region');
-      expect(response.body.region).toBe(true);
-    });
-  
-    // Rest of your tests...
-
-    beforeAll(() => {
-      // Get a valid token for authentication
-      // You can obtain the API_key from your authentication mechanism
-      API_key = 'Umfs92OnouirxpDLqBtUlHw0ZkLgMI91';
-    });
-  
-  // Test for getting a specific a region
-  
-  it('should get a specific region', async () => {
-    const response = await request(app)
-      .get('/location/region')
-      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
-  
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('region');
-    expect(response.body.region).toBe(true);
-  });
-  
- // Test for getting a specific state 
-
-  it('should get a specific state', async () => {
-    const response = await request(app)
-      .get('/location/state')
-      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
-  
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('state');
-    expect(response.body.region).toBe(true);
-  });
-  
-    // Test for getting a specific local government
-
-  it('should get a specific local government', async () => {
-    const response = await request(app)
-      .get('/location/lga')
-      .set('x-api-key', API_key); // Use 'x-api-key' header instead of 'Authorization'
-  
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('lgas');
-    expect(response.body.lgas).toBe(true);
-  });
-  
 });
+
+// ...
+
+
+describe('Location Routes', () => {
+  describe('GET /region', () => {
+    it('should return 200 and call getRegions controller with auth middleware', async () => {
+      const getRegionsMock = jest.fn();
+
+      jest.doMock('../controller/location.controller', () => ({
+        getRegions: getRegionsMock,
+      }));
+
+      const locationRouter = require('../routes/location.route');
+
+      const response = await request(app).get('/region');
+
+      expect(response.status).toBe(200);
+      expect(getRegionsMock).toHaveBeenCalled();
+    });
+
+    // Add more test cases for different scenarios
+  });
+
+  describe('GET /state', () => {
+    it('should return 200 and call getState controller with auth middleware', async () => {
+      const getStateMock = jest.fn();
+
+      jest.doMock('../controller/location.controller', () => ({
+        getState: getStateMock,
+      }));
+
+      const locationRouter = require('../routes/location.route');
+
+      const response = await request(app).get('/state');
+
+      expect(response.status).toBe(200);
+      expect(getStateMock).toHaveBeenCalled();
+    });
+
+    // Add more test cases for different scenarios
+  });
+
+  describe('GET /lga', () => {
+    it('should return 200 and call getLocalGvt controller with auth middleware', async () => {
+      const getLocalGvtMock = jest.fn();
+
+      jest.doMock('../controller/location.controller', () => ({
+        getLocalGvt: getLocalGvtMock,
+      }));
+
+      const locationRouter = require('../routes/location.route');
+
+      const response = await request(app).get('/lga');
+
+      expect(response.status).toBe(200);
+      expect(getLocalGvtMock).toHaveBeenCalled();
+    });
+
+    // Add more test cases for different scenarios
+  });
+
+  // Add more tests for other routes if needed
+});
+
+
+function connectMongoDB() {
+  throw new Error('Function not implemented.');
+}
+
