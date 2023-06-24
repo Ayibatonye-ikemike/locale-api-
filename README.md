@@ -24,21 +24,18 @@ I have hosted it on:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/enosefelix/locale-api.git
+   git clone :https://github.com/Ayibatonye-ikemike/locale-api-.git
    ```
 2. Navigate into the project directory:
    ```
-   cd locale-api
+   cd locale-api-
    ```
 3. Install the project dependencies:
    ```
    npm install
    ```
-4. Make a copy of .env.sample as .env and populate file with required credentials
+4. Make a copy of .env and populate file with required credentials
 
-    ```sh
-    cp .env.sample .env
-    ```
 
 5. Start the development server:
    ```
