@@ -166,57 +166,5 @@ async function getLocalGvt(req: Request, res: Response) {
     }
 }
 
-async function createLocation(req: Request, res: Response) {
-    try {
-      const {
-        state,
-        capital,
-        region,
-        slogan,
-        senatorial_districts,
-        lgas,
-        landmass,
-        population,
-        dialect,
-        map,
-        latitude,
-        longitude,
-        website,
-        geo_politcal_zone,
-        created_date,
-        created_by,
-        past_governors,
-        borders,
-        known_for
-      } = req.body;
   
-      // Create a new location in the database
-      const newLocation = await locationModel.create({
-        state,
-        capital,
-        region,
-        slogan,
-        senatorial_districts,
-        lgas,
-        landmass,
-        population,
-        dialect,
-        map,
-        latitude,
-        longitude,
-        website,
-        geo_politcal_zone,
-        created_date,
-        created_by,
-        past_governors,
-        borders,
-        known_for
-      });
-  
-      res.status(201).json({ location: newLocation });
-    } catch (error:any) {
-      res.status(500).json({ error: error.message });
-    }
-  }
-  
-  export { getAll, getRegions, getState, getLocalGvt, createLocation };
+  export { getAll, getRegions, getState, getLocalGvt};

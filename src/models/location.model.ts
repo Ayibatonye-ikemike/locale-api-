@@ -8,7 +8,7 @@ const locationSchema = new Schema({
     },
     capital: {
         type: String,
-        required: true
+        required: false
     },
     region: {
         type: String,
@@ -16,7 +16,7 @@ const locationSchema = new Schema({
     },
     slogan: {
         type: String,
-        required: true
+        required: false
     },
     senatorial_districts: {
         type: Array,
@@ -54,10 +54,7 @@ const locationSchema = new Schema({
         type: String,
         required: true
     },
-    geo_politcal_zone: {
-        type: String,
-        required: true
-    },
+
     created_date: {
         type: Date,
         required: true
