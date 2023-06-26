@@ -91,6 +91,8 @@ Authorization: your_api_key
 **Response:**
 
 ```
+
+```
 {
   "regions": [
     {
@@ -266,8 +268,6 @@ Authorization: your_api_key
     }
   ]
 }
-```
-
 ---
 
 ## Contributing
