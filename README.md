@@ -278,6 +278,6 @@ If you would like to contribute to this project, please feel free to fork the re
 
 ## Contact
 
-You can contact with my email ayibatonyeikemike94@gmail.com.
+You can contact me with my email ayibatonyeikemike94@gmail.com.
 
 ---
