@@ -30,14 +30,18 @@ I have hosted it on:
    ```
    cd locale-api-
    ```
-3. Install the project dependencies:
+3.  Add the project dependecies: 
+    ```
+   npm init -y
+   ```
+4. Install the project dependencies:
    ```
    npm install
    ```
-4. Make a copy of .env and populate file with required credentials
+5. Make a copy of .env and populate file with required credentials
 
 
-5. Start the development server:
+6. Start the development server:
    ```
    npm start:dev
    ```
@@ -274,6 +278,6 @@ If you would like to contribute to this project, please feel free to fork the re
 
 ## Contact
 
-If you have any questions about this project, please feel free to open an issue or directly contact the project owner.
+You can contact with my email ayibatonyeikemike94@gmail.com.
 
 ---
