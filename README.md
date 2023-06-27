@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 - MongoDB installed on your local machine. [Install](https://docs.mongodb.com/manual/installation/)
 - Redis installed on your local machine. [this link](https://redis.io/docs/getting-started/) for guideline
 
-I have hosted it on: 
+I have hosted it on: https://locale-k419.onrender.com
 
 ### Installation
 
