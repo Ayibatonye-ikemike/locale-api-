@@ -4,8 +4,9 @@
   "description": "This is a RESTful API built with Node.js and Express, which provides location data, specifically for regions, states and local governments.",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
+    "start": "nodemon ./dist/app.js",
     "start:dev": "nodemon --exec ts-node app.ts"
   },
   "keywords": [],
