@@ -71,6 +71,10 @@ The API provides the following endpoints:
 To test on your local with swagger, use
 ```
 localhost:3000/api-docs
+  
+   live link:
+   
+https://locale-k419.onrender.com/api-docs
 ```
 
 The API uses bearer token for authorization, so you have to include your API key in the Authorization header as follows:
